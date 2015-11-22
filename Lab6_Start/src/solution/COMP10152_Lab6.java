@@ -4,6 +4,7 @@ import battleship.BattleShip;
 import java.awt.Point;
 import java.util.Random;
 
+
 /**
  * A program that will run a battleship solution.  
  * 
@@ -22,6 +23,7 @@ public class COMP10152_Lab6
   {
     long start = System.nanoTime();
     int totalShots = 0;
+    boolean searchMode = true;
     for (int game = 0; game < NUMBEROFGAMES; game++) {
 
       BattleShip battleShip = new BattleShip();
@@ -31,11 +33,18 @@ public class COMP10152_Lab6
       
       while (!battleShip.allSunk()) // You will always need a loop that looks like this
       {
-        // All of your logic must occur here   
-        Point shot = new Point(r.nextInt(battleShip.BOARDSIZE), r.nextInt(battleShip.BOARDSIZE));
-        
+        Point shot = new Point(0,0);
+        // All of your logic must occur here  
+        if (searchMode){
+            shot = new Point(battleShip.BOARDSIZE/2, battleShip.BOARDSIZE/2);
+            if(battleShip.shoot(shot)){
+                searchMode = false;
+            }
+        }
+        else{
+            
+        }
         // At the end of each decision on where to fire next you need to shoot
-        battleShip.shoot(shot);
       }
       
       // When you are finished you can ask the battleship API how many shots you have taken.
